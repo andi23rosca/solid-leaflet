@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "target": "esnext",
+    "newLine": "LF",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "solid-js",
+    "outDir": "./dist",
+    "module": "esnext",
+    "emitDeclarationOnly": true
+  },
+  "include": ["./lib"],
+  "exclude": ["node_modules/"]
+}

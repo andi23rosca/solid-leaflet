@@ -1,10 +1,11 @@
 {
   "name": "solid-leaflet",
   "version": "0.0.1",
-  "description": "SolidJS components for Leaflet JS",
+  "description": "SolidJS components for Leaflet",
   "keywords": [
     "solid",
-    "solid-js"
+    "solid-js",
+    "leaflet"
   ],
   "sideEffects": false,
   "homepage": "https://github.com/andi23rosca/solid-leaflet",

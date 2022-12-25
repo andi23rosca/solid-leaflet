@@ -1,4 +1,5 @@
 import {
+  DragEndEventHandlerFn,
   ErrorEventHandlerFn,
   LayerEventHandlerFn,
   LayersControlEventHandlerFn,
@@ -56,6 +57,13 @@ export type LeafletEvents = {
   preclick: LeafletMouseEventHandlerFn;
   // other events
   zoomanim: ZoomAnimEventHandlerFn;
+  // dragging events
+  dragstart: LeafletEventHandlerFn;
+  drag: LeafletEventHandlerFn;
+  dragend: DragEndEventHandlerFn;
+  // layer events
+  add: LeafletEventHandlerFn;
+  remove: LeafletEventHandlerFn;
 };
 
 export type LeafletEventName = keyof LeafletEvents;

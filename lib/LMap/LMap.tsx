@@ -11,13 +11,13 @@ import { events, LMapListeners } from "./events";
 import { eventNameToProp } from "../_utils/events";
 import { MapContextProvider } from "../MapContext";
 
-export const LMap: Component<
-  {
-    options?: MapOptions;
-    children?: JSX.Element;
-    style?: JSX.HTMLAttributes<HTMLDivElement>["style"];
-  } & LMapListeners
-> = (p) => {
+type LMapProps = {
+  options?: MapOptions;
+  children?: JSX.Element;
+  style?: JSX.HTMLAttributes<HTMLDivElement>["style"];
+} & LMapListeners;
+
+export const LMap: Component<LMapProps> = (p) => {
   let mapRoot: HTMLDivElement;
 
   const [map, setMap] = createSignal<Map>();

@@ -48,6 +48,9 @@ export const LMap: Component<LMapProps> = (p) => {
           <MapContextProvider map={map}>{p.children}</MapContextProvider>
         )}
       </Show>
+
+      {/* Needed to prevent solid from removing all children of the leaflet container. (weird bug) */}
+      <div></div>
     </div>
   );
 };

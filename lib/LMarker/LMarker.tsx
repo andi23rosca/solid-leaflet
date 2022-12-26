@@ -40,5 +40,5 @@ export const LMarker: Component<LMarkerProps> = (p) => {
     }
   });
 
-  return "";
+  return undefined;
 };

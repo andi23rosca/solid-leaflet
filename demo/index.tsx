@@ -20,4 +20,21 @@ const Demo: Component = () => {
   );
 };
 
+const NothinParent = () => {
+  const [test, setTest] = createSignal(0);
+  return (
+    <div>
+      <Nothing test={test()} />
+      <Nothing test={test()} />
+    </div>
+  );
+};
+
+const Nothing = (props: any) => {
+  createEffect(() => {
+    console.log(props.test);
+  });
+  return undefined;
+};
+
 render(() => <Demo />, document.getElementById("app")!);

@@ -1,5 +1,5 @@
 import { LatLng, Marker, MarkerOptions } from "leaflet";
-import { Component, createEffect, onCleanup, onMount } from "solid-js";
+import { Component, createEffect, JSX, onCleanup, onMount } from "solid-js";
 import { useMapContext } from "../MapContext";
 import { eventNameToProp } from "../_utils/events";
 import { events, LMarkerListeners } from "./events";
@@ -7,6 +7,7 @@ import { events, LMarkerListeners } from "./events";
 type LMarkerProps = {
   latlng: LatLng;
   options?: MarkerOptions;
+  children?: JSX.Element;
 } & LMarkerListeners;
 
 export const LMarker: Component<LMarkerProps> = (p) => {
@@ -39,5 +40,5 @@ export const LMarker: Component<LMarkerProps> = (p) => {
     }
   });
 
-  return undefined;
+  return "";
 };

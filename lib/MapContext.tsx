@@ -1,5 +1,11 @@
 import { Map } from "leaflet";
-import { Component, createContext, JSX, useContext } from "solid-js";
+import {
+  Component,
+  createContext,
+  createEffect,
+  JSX,
+  useContext,
+} from "solid-js";
 import { createStore } from "solid-js/store";
 
 export type MapContextObj = [
@@ -17,7 +23,6 @@ export const MapContextProvider: Component<{
 }> = (props) => {
   const [state, setState] = createStore({ map: props.map });
   const value: MapContextObj = [state, {}];
-
   return (
     <MapContext.Provider value={value}>{props.children}</MapContext.Provider>
   );

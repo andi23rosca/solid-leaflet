@@ -6,7 +6,7 @@ import {
   onMount,
   Show,
 } from "solid-js";
-import { LatLng, Map, MapOptions, Marker } from "leaflet";
+import { Map, MapOptions } from "leaflet";
 import { events, LMapListeners } from "./events";
 import { eventNameToProp } from "../_utils/events";
 import { MapContextProvider } from "../MapContext";

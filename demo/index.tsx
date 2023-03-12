@@ -1,11 +1,19 @@
-import { Component, createEffect, createSignal, For } from "solid-js";
+import { Component, createSignal } from "solid-js";
 import { render } from "solid-js/web";
 import { LMap, LMarker } from "../lib";
 
-import "leaflet/dist/leaflet.css";
 import { LatLng } from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 const Demo: Component = () => {
+  const [op, setOp] = createSignal(1);
+
+  // const opacity = (delta: number) => {
+  //   setOp(Math.abs(Math.sin(delta / 1000)));
+  //   requestAnimationFrame(opacity);
+  // };
+  // requestAnimationFrame(opacity);
+
   return (
     <LMap
       options={{
@@ -14,27 +22,10 @@ const Demo: Component = () => {
       }}
       style={{ height: "500px" }}
     >
-      <LMarker latlng={new LatLng(2, 2)} />
+      <LMarker latlng={new LatLng(op() * 3, 2)} opacity={op()} />
       <LMarker latlng={new LatLng(0, 0)} />
     </LMap>
   );
-};
-
-const NothinParent = () => {
-  const [test, setTest] = createSignal(0);
-  return (
-    <div>
-      <Nothing test={test()} />
-      <Nothing test={test()} />
-    </div>
-  );
-};
-
-const Nothing = (props: any) => {
-  createEffect(() => {
-    console.log(props.test);
-  });
-  return undefined;
 };
 
 render(() => <Demo />, document.getElementById("app")!);

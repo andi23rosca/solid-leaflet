@@ -1,3 +1,4 @@
+import { Map as LeafletMap, MapOptions } from "leaflet";
 import {
   Component,
   createSignal,
@@ -6,43 +7,45 @@ import {
   onMount,
   Show,
 } from "solid-js";
-import { Map, MapOptions } from "leaflet";
-import { events, LMapListeners } from "./events";
-import { eventNameToProp } from "../_utils/events";
 import { MapContextProvider } from "../MapContext";
+import { setupEventListeners } from "../_utils/events";
+import { events, LMapListeners } from "./events";
 
 type LMapProps = {
   options?: MapOptions;
   children?: JSX.Element;
   style?: JSX.HTMLAttributes<HTMLDivElement>["style"];
+  class?: JSX.HTMLAttributes<HTMLDivElement>["class"];
+  classList?: JSX.CustomAttributes<HTMLDivElement>["classList"];
+  onInit?: (map: LeafletMap) => void;
 } & LMapListeners;
 
 export const LMap: Component<LMapProps> = (p) => {
   let mapRoot: HTMLDivElement;
 
-  const [map, setMap] = createSignal<Map>();
+  const [map, setMap] = createSignal<LeafletMap>();
 
   onMount(() => {
-    const m = new Map(mapRoot, p.options);
-    setMap(m);
+    const mapInstance = new LeafletMap(mapRoot, p.options);
+    setMap(mapInstance);
+    p.onInit?.(mapInstance);
 
-    events.forEach((e) => {
-      const listener: any = p[eventNameToProp(e)];
-      if (listener) m.addEventListener(e, listener);
-    });
+    const { cleanup } = setupEventListeners(mapInstance, events, p);
 
     onCleanup(() => {
-      m.remove();
-
-      events.forEach((e) => {
-        const listener: any = p[eventNameToProp(e)];
-        if (listener) m.removeEventListener(e, listener);
-      });
+      mapInstance.remove();
+      cleanup();
     });
   });
 
   return (
-    <div ref={(el) => (mapRoot = el)} style={p.style}>
+    <div
+      ref={(el) => (mapRoot = el)}
+      style={p.style}
+      class={p.class}
+      classList={p.classList}
+    >
+      {/* Only load map context and children after map has been set up */}
       <Show when={map()} keyed>
         {(map) => (
           <MapContextProvider map={map}>{p.children}</MapContextProvider>
@@ -50,6 +53,7 @@ export const LMap: Component<LMapProps> = (p) => {
       </Show>
 
       {/* Needed to prevent solid from removing all children of the leaflet container. (weird bug) */}
+      {/* rome-ignore lint/style/useSelfClosingElements: <explanation> */}
       <div></div>
     </div>
   );

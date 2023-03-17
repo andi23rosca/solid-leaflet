@@ -64,6 +64,14 @@ export type LeafletEvents = {
   // layer events
   add: LeafletEventHandlerFn;
   remove: LeafletEventHandlerFn;
+  // grid layer events
+  loading: LeafletEventHandlerFn;
+  tileunload: LeafletEventHandlerFn;
+  tileloadstart: LeafletEventHandlerFn;
+  tileerror: ErrorEventHandlerFn;
+  tileload: LeafletEventHandlerFn;
+  // tile layer events
+  tileabort: LeafletEventHandlerFn;
 };
 
 export type LeafletEventName = keyof LeafletEvents;
